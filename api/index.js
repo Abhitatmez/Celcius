@@ -57,6 +57,10 @@ module.exports = async (req, res) => {
                 return res.json(historicalData);
             }
 
+            if (path === '/api/test') {
+                return res.json({ message: "API is working" });
+            }
+
             // Add other GET routes here...
         }
 

@@ -41,7 +41,6 @@ Celsius is a web-based monitoring system that collects temperature and humidity 
 - DHT11 VCC → ESP8266 3.3V
 - DHT11 DATA → ESP8266 D4 (GPIO2)
 - DHT11 GND → ESP8266 GND
-- 10K Resistor between VCC and DATA
 
 ## 🔧 Setup and Installation
 

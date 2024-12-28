@@ -1,140 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IoT Environment Monitor</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-    <div class="sidebar">
-        <div class="logo">
-            <i class="fas fa-microchip"></i>
-            <span>Celsius</span>
-        </div>
-        <nav>
-            <a href="index.html" class="active"><i class="fas fa-home"></i> Dashboard</a>
-            <a href="history.html"><i class="fas fa-history"></i> History</a>
-            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
-        </nav>
-    </div>
+const mongoose = require("mongoose");
+const { json } = require("express");
 
-    <main class="main-content">
-        <header>
-            <div class="header-title">
-                <h1>Environment Dashboard</h1>
-                <p>Real-time monitoring system</p>
-            </div>
-            <div class="header-actions">
-                <span class="status-indicator">
-                    <span class="status-dot"></span>
-                    System Online
-                </span>
-                <button id="refreshBtn" class="primary-button">
-                    <i class="fas fa-sync-alt"></i> Refresh
-                </button>
-            </div>
-        </header>
+// MongoDB connection
+let cachedDb = null;
 
-        <div class="dashboard-grid">
-            <div class="sensor-card">
-                <div class="sensor-icon">
-                    <i class="fas fa-temperature-high"></i>
-                </div>
-                <div class="sensor-info">
-                    <h3>Temperature</h3>
-                    <div class="sensor-value" id="temperature">--°C</div>
-                    <div class="sensor-trend">
-                        <span class="trend-arrow">↑</span>
-                        <span class="trend-value">2.3%</span>
-                    </div>
-                </div>
-            </div>
+async function connectToDatabase() {
+    if (cachedDb) {
+        return cachedDb;
+    }
+    
+    const mongoURI = process.env.MONGODB_URI;
+    if (!mongoURI) {
+        throw new Error('MONGODB_URI is not defined');
+    }
 
-            <div class="sensor-card">
-                <div class="sensor-icon">
-                    <i class="fas fa-tint"></i>
-                </div>
-                <div class="sensor-info">
-                    <h3>Humidity</h3>
-                    <div class="sensor-value" id="humidity">--%</div>
-                    <div class="sensor-trend">
-                        <span class="trend-arrow">↓</span>
-                        <span class="trend-value">1.5%</span>
-                    </div>
-                </div>
-            </div>
+    const db = await mongoose.connect(mongoURI);
+    cachedDb = db;
+    return db;
+}
 
-            <div class="stats-card">
-                <h3>Statistics</h3>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <span class="stat-label">Avg Temp</span>
-                        <span class="stat-value" id="avgTemp">--°C</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label">Avg Humidity</span>
-                        <span class="stat-value" id="avgHumidity">--%</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label">Last Update</span>
-                        <span class="stat-value" id="lastUpdate">--:--</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label">Readings Today</span>
-                        <span class="stat-value" id="readingsCount">0</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+// Define Schema
+const SensorDataSchema = new mongoose.Schema({
+    temperature: Number,
+    humidity: Number,
+    timestamp: { type: Date, default: Date.now },
+});
 
-        <div class="alerts-section">
-            <h3>Recent Alerts</h3>
-            <div class="alerts-list" id="alertsList">
-                <div class="alert-item">
-                    <div class="alert-icon warning">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <div class="alert-content">
-                        <div class="alert-header">
-                            <span class="alert-type">High Temperature</span>
-                            <span class="alert-time">2 mins ago</span>
-                        </div>
-                        <div class="alert-message">Temperature reached 32°C (Above threshold of 30°C)</div>
-                    </div>
-                </div>
+// Ensure model isn't recreated
+const SensorData = mongoose.models.SensorData || mongoose.model("SensorData", SensorDataSchema);
 
-                <div class="alert-item">
-                    <div class="alert-icon critical">
-                        <i class="fas fa-exclamation-circle"></i>
-                    </div>
-                    <div class="alert-content">
-                        <div class="alert-header">
-                            <span class="alert-type">High Humidity</span>
-                            <span class="alert-time">15 mins ago</span>
-                        </div>
-                        <div class="alert-message">Humidity reached 85% (Above threshold of 80%)</div>
-                    </div>
-                </div>
+// Serverless function handler
+module.exports = async (req, res) => {
+    // Enable CORS
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-                <div class="alert-item">
-                    <div class="alert-icon info">
-                        <i class="fas fa-info-circle"></i>
-                    </div>
-                    <div class="alert-content">
-                        <div class="alert-header">
-                            <span class="alert-type">Sensor Status</span>
-                            <span class="alert-time">1 hour ago</span>
-                        </div>
-                        <div class="alert-message">DHT11 sensor readings stabilized</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
 
-    <script src="script.js"></script>
-</body>
-</html>
+    try {
+        await connectToDatabase();
+
+        // Route handling based on path
+        const path = req.url;
+
+        if (req.method === 'GET') {
+            if (path === '/api/data') {
+                const latestData = await SensorData.find().sort({ timestamp: -1 }).limit(1);
+                return res.json(latestData[0] || { error: "No data found" });
+            }
+            
+            if (path === '/api/data/history') {
+                const historicalData = await SensorData.find().sort({ timestamp: -1 }).limit(100);
+                return res.json(historicalData);
+            }
+
+            if (path === '/api/test') {
+                return res.json({ message: "API is working" });
+            }
+
+            // Add other GET routes here...
+        }
+
+        if (req.method === 'POST' && path === '/api/data') {
+            const { temperature, humidity } = req.body;
+            
+            if (!temperature || !humidity) {
+                return res.status(400).json({ error: "Invalid data format" });
+            }
+
+            const newData = new SensorData({ temperature, humidity });
+            await newData.save();
+            return res.status(200).json({ message: "Data saved successfully" });
+        }
+
+        return res.status(404).json({ error: "Route not found" });
+
+    } catch (error) {
+        console.error('API Error:', error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+};

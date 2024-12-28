@@ -283,3 +283,51 @@ function updateAlerts(sensorData) {
         `;
     }
 }
+
+async function testAPI() {
+    try {
+        const response = await fetch('/api/test');
+        console.log('Test API Response:', response.status);
+        const data = await response.json();
+        console.log('Test API Data:', data);
+    } catch (error) {
+        console.error('Test API Error:', error);
+    }
+}
+
+async function fetchLatestReadings() {
+    try {
+        console.log('Fetching data...');
+        const response = await fetch('/api/data');
+        console.log('Response status:', response.status);
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Error response:', errorText);
+            throw new Error(`Failed to fetch data: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('Received data:', data);
+        
+        if (!data || !data.temperature) {
+            console.error('Invalid data format:', data);
+            throw new Error('Invalid data format received');
+        }
+        
+        document.getElementById('temperature').textContent = `${data.temperature}°C`;
+        document.getElementById('humidity').textContent = `${data.humidity}%`;
+        document.getElementById('lastUpdate').textContent = new Date(data.timestamp).toLocaleTimeString();
+        
+    } catch (error) {
+        console.error('Detailed fetch error:', error);
+        document.getElementById('temperature').textContent = 'Error';
+        document.getElementById('humidity').textContent = 'Error';
+    }
+}
+
+// Call both functions when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    testAPI();
+    fetchLatestReadings();
+});

@@ -18,28 +18,28 @@ Celsius is a web-based monitoring system that collects temperature and humidity 
 
 The system consists of three main pages:
 
-![All Pages](pages.png)
+![All Pages](public/assets/pages.png)
 
 ### Dashboard
 The main control center showing real-time temperature and humidity readings, along with system status and recent alerts.
 
-![Dashboard](dashboard.png)
+![Dashboard](public/assets/dashboard.png)
 
 ### History
 View and analyze historical temperature and humidity data with filtering options.
 
-![History](history.png)
+![History](public/assets/history.png)
 
 ### Settings
 Configure system parameters, alert thresholds, and notification preferences.
 
-![Settings](settings.png)
+![Settings](public/assets/settings.png)
 
 ## 📡 Circuit Diagram
 
 The hardware setup consists of an ESP8266 connected to a DHT11 sensor:
 
-![Circuit Diagram](circuit.png)
+![Circuit Diagram](public/assets/circuit.jpg)
 
 ### Pin Configuration
 - DHT11 VCC → ESP8266 3.3V
@@ -102,4 +102,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - Font Awesome for icons
 - MongoDB Atlas for database hosting
 - Vercel for deployment
-

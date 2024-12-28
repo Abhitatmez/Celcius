@@ -1,3 +1,5 @@
+![Celsius](public/assets/celposter.jpg)
+
 # Celsius - IoT Temperature Monitoring System
 
 A real-time IoT temperature and humidity monitoring system using ESP8266, DHT11 sensor, MongoDB, and Vercel deployment.
@@ -39,7 +41,7 @@ Configure system parameters, alert thresholds, and notification preferences.
 
 The hardware setup consists of an ESP8266 connected to a DHT11 sensor:
 
-![Circuit Diagram](public/assets/circuit.jpg)
+![Circuit Diagram](public/assets/circuit.png)
 
 ### Pin Configuration
 - DHT11 VCC → ESP8266 3.3V

@@ -40,6 +40,12 @@ body {
     margin-bottom: 40px;
 }
 
+.logo-img {
+    width: 24px;  /* Adjust size as needed */
+    height: 24px;
+    object-fit: contain;
+}
+
 .sidebar nav {
     display: flex;
     flex-direction: column;

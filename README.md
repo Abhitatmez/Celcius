@@ -41,7 +41,7 @@ Configure system parameters, alert thresholds, and notification preferences.
 
 The hardware setup consists of an ESP8266 connected to a DHT11 sensor:
 
-![Circuit Diagram](public/assets/circuit.png)
+![Circuit Diagram](public/assets/circuit.jpg)
 
 ### Pin Configuration
 - DHT11 VCC → ESP8266 3.3V

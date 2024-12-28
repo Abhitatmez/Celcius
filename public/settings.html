@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celsius - Settings</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-microchip"></i>
+            <span>Celsius</span>
+        </div>
+        <nav>
+            <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="history.html"><i class="fas fa-history"></i> History</a>
+            <a href="settings.html" class="active"><i class="fas fa-cog"></i> Settings</a>
+        </nav>
+    </div>
+
+    <main class="main-content">
+        <header>
+            <div class="header-title">
+                <h1>Settings</h1>
+                <p>Configure system preferences</p>
+            </div>
+        </header>
+
+        <div class="settings-container">
+            <div class="settings-section">
+                <h2>Alert Thresholds</h2>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label>Temperature Min (°C)</label>
+                        <input type="number" id="tempMin" value="18">
+                    </div>
+                    <div class="setting-item">
+                        <label>Temperature Max (°C)</label>
+                        <input type="number" id="tempMax" value="30">
+                    </div>
+                    <div class="setting-item">
+                        <label>Humidity Min (%)</label>
+                        <input type="number" id="humidityMin" value="30">
+                    </div>
+                    <div class="setting-item">
+                        <label>Humidity Max (%)</label>
+                        <input type="number" id="humidityMax" value="70">
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h2>Notifications</h2>
+                <div class="settings-options">
+                    <div class="setting-toggle">
+                        <label>Email Alerts</label>
+                        <input type="checkbox" id="emailAlerts">
+                    </div>
+                    <div class="setting-toggle">
+                        <label>Push Notifications</label>
+                        <input type="checkbox" id="pushNotifications">
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h2>Data Collection</h2>
+                <div class="settings-options">
+                    <div class="setting-item">
+                        <label>Sampling Interval (seconds)</label>
+                        <input type="number" id="samplingInterval" value="300">
+                    </div>
+                    <div class="setting-toggle">
+                        <label>Auto-export Daily Reports</label>
+                        <input type="checkbox" id="autoExport">
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-actions">
+                <button id="saveSettings" class="primary-button">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+                <button id="resetSettings" class="secondary-button">
+                    <i class="fas fa-undo"></i> Reset to Defaults
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="settings.js"></script>
+</body>
+</html>

@@ -12,7 +12,6 @@ Celsius is a web-based monitoring system that collects temperature and humidity 
 - Historical data tracking
 - Responsive dashboard interface
 - Alert system for threshold violations
-- Mobile-friendly design
 
 ## 🛠️ Technology Stack
 

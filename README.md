@@ -103,4 +103,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - MongoDB Atlas for database hosting
 - Vercel for deployment
 
-Project Link: [https://github.com/yourusername/celsius](https://github.com/yourusername/celsius)

@@ -12,35 +12,40 @@ Celsius is a web-based monitoring system that collects temperature and humidity 
 - Historical data tracking
 - Responsive dashboard interface
 - Alert system for threshold violations
+- Mobile-friendly design
 
-## 🛠️ Technology Stack
+## 📱 Pages
 
-- **Hardware**
-  - ESP8266 Microcontroller
-  - DHT11 Temperature & Humidity Sensor
+The system consists of three main pages:
 
-- **Backend**
-  - MongoDB (Database)
-  - Node.js
-  - Express.js
+![All Pages](pages.png)
 
-- **Frontend**
-  - HTML5
-  - CSS3
-  - JavaScript
+### Dashboard
+The main control center showing real-time temperature and humidity readings, along with system status and recent alerts.
 
-- **Deployment**
-  - Vercel (Hosting)
-  - MongoDB Atlas (Database hosting)
+![Dashboard](dashboard.png)
+
+### History
+View and analyze historical temperature and humidity data with filtering options.
+
+![History](history.png)
+
+### Settings
+Configure system parameters, alert thresholds, and notification preferences.
+
+![Settings](settings.png)
 
 ## 📡 Circuit Diagram
 
-### ESP8266 + DHT11 Connection
+The hardware setup consists of an ESP8266 connected to a DHT11 sensor:
+
+![Circuit Diagram](circuit.png)
 
 ### Pin Configuration
 - DHT11 VCC → ESP8266 3.3V
 - DHT11 DATA → ESP8266 D4 (GPIO2)
 - DHT11 GND → ESP8266 GND
+- 10K Resistor between VCC and DATA
 
 ## 🔧 Setup and Installation
 
@@ -77,24 +82,12 @@ Celsius is a web-based monitoring system that collects temperature and humidity 
    vercel
    ```
 
-## 📊 Dashboard Features
-
-- Real-time temperature and humidity display
-- Historical data logs
-- Alert notifications
-- Customizable settings
-- Mobile-responsive design
-
 ## 🔌 API Endpoints
 
 - `GET /api/data` - Get latest sensor readings
 - `POST /api/data` - Submit new sensor readings
 - `GET /api/data/history` - Get historical data
 - `GET /api/data/stats` - Get statistical data
-
-## 📱 Screenshots
-
-[Add screenshots of your dashboard here]
 
 ## 📄 License
 
@@ -109,3 +102,5 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - Font Awesome for icons
 - MongoDB Atlas for database hosting
 - Vercel for deployment
+
+Project Link: [https://github.com/yourusername/celsius](https://github.com/yourusername/celsius)

@@ -9,7 +9,7 @@ Celsius is a web-based monitoring system that collects temperature and humidity 
 ## 🚀 Features
 
 - Real-time temperature and humidity monitoring
-- Historical data tracking and visualization
+- Historical data tracking
 - Responsive dashboard interface
 - Alert system for threshold violations
 - Mobile-friendly design
@@ -29,17 +29,25 @@ Celsius is a web-based monitoring system that collects temperature and humidity 
   - HTML5
   - CSS3
   - JavaScript
-  - Chart.js for data visualization
 
 - **Deployment**
   - Vercel (Hosting)
   - MongoDB Atlas (Database hosting)
 
+## 📡 Circuit Diagram
+
+### ESP8266 + DHT11 Connection
+
+### Pin Configuration
+- DHT11 VCC → ESP8266 3.3V
+- DHT11 DATA → ESP8266 D4 (GPIO2)
+- DHT11 GND → ESP8266 GND
+- 10K Resistor between VCC and DATA
 
 ## 🔧 Setup and Installation
 
 1. **Hardware Setup**
-   - Connect DHT11 sensor to ESP8266
+   - Connect DHT11 sensor to ESP8266 following the circuit diagram above
    - Flash the ESP8266 with provided code
    - Configure WiFi credentials
 
@@ -74,7 +82,7 @@ Celsius is a web-based monitoring system that collects temperature and humidity 
 ## 📊 Dashboard Features
 
 - Real-time temperature and humidity display
-- Historical data graphs
+- Historical data logs
 - Alert notifications
 - Customizable settings
 - Mobile-responsive design
@@ -100,13 +108,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## ✨ Acknowledgements
 
-- Chart.js for data visualization
 - Font Awesome for icons
 - MongoDB Atlas for database hosting
 - Vercel for deployment
-
-## 📞 Contact
-
-[Your Name] - [Your Email]
-
-Project Link: [https://github.com/yourusername/celsius](https://github.com/yourusername/celsius)
